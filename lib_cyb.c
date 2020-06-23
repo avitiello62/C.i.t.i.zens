@@ -33,6 +33,27 @@ unsigned char * Hmac_on_32_random_bytes()
   return result;
 }
 
+void digest_message(unsigned char *message, unsigned char **digest, unsigned int *digest_len)
+{
+    EVP_MD_CTX *mdctx;
+
+    if((mdctx = EVP_MD_CTX_create()) == NULL)
+        handleErrors();
+
+    if(1 != EVP_DigestInit_ex(mdctx, EVP_sha256(), NULL))
+        handleErrors();
+
+    if(1 != EVP_DigestUpdate(mdctx, message, strlen(message)))
+        handleErrors();
+
+    if((*digest = (unsigned char *)OPENSSL_malloc(EVP_MD_size(EVP_sha256()))) == NULL)
+        handleErrors();
+
+    if(1 != EVP_DigestFinal_ex(mdctx, *digest, digest_len))
+        handleErrors();
+
+    EVP_MD_CTX_destroy(mdctx);
+}
 
 
 void handleErrors(void)
