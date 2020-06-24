@@ -8,15 +8,18 @@
 #include <openssl/aes.h>
 #include "./lib_cyb.h"
 
-unsigned char * Hmac_on_32_random_bytes()
+//generating a 32 random  bytes sk0 and applying a prf (Hmac-Sha256)
+unsigned char * Hmac_sha256_on_32_random_bytes()
 {
   unsigned int seed = 0x00beef00;
   unsigned char  data[40];
   RAND_seed(&seed, sizeof(seed));
   RAND_bytes(data, 32);
-  printf("32 random bytes :\n");
-  BIO_dump_fp (stdout, (const char *)data, 32);
 
+  
+  printf("\nSK0 :\t");
+  for(int i=0;i<32;i++)
+    printf("%02x",(uint8_t)data[i]);
 
   
   unsigned char *key = (unsigned char*)"Broadcast Key";
@@ -28,8 +31,9 @@ unsigned char * Hmac_on_32_random_bytes()
   for (i = 0; i < result_len; i++) {
     sprintf(&(res_hexstring[i * 2]), "%02x", result[i]);
   }
-  printf("Output hmac sha256 :\n");
-  BIO_dump_fp (stdout, (const char *)result,32);
+  printf("\nOutput hmac-sha256 :\t");
+  for(i=0;i<32;i++)
+    printf("%02x",(uint8_t)result[i]);
   return result;
 }
 
@@ -149,4 +153,18 @@ int decrypt(unsigned char *ciphertext, int ciphertext_len, unsigned char *key,
     EVP_CIPHER_CTX_free(ctx);
 
     return plaintext_len;
+}
+
+int ascii_to_hex(char c)
+{
+        int num = (int) c;
+        if(num < 58 && num > 47)
+        {
+                return num - 48; 
+        }
+        if(num < 103 && num > 96)
+        {
+                return num - 87;
+        }
+        return num;
 }
