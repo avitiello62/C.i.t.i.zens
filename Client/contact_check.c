@@ -12,20 +12,20 @@ int main(void)
     char buffer1[40];
     char buffer2[40];
     //open list of all ephids collected from contact
-    fp1 = fopen("contact_list.txt", "r");
+    fp1 = fopen("Data/contact_list.txt", "r");
     if (fp1 == NULL)
         return 1;
     //for each ephid
-    while (fgets (str, 33, fp1)!=NULL) {
+    while (fgets (buffer1, 33, fp1)!=NULL) {
     	//open the file with all sick ephids 
-    	fp2 = fopen("ephid_sick.txt", "r");
+    	fp2 = fopen("Data/ephid_sick.txt", "r");
 		if (fp2 == NULL)
         	return 1;
-        while (fgets (str2, 33, fp2)!=NULL)
+        while (fgets (buffer2, 33, fp2)!=NULL)
         	//count how much corrispondence there are
-        	if(strcmp(str,str2)==0){
+        	if(strcmp(buffer1,buffer2)==0){
         		printf("\n Malato = %d\t",++i);
-        		printf("%s\n",str);
+        		printf("%s\n",buffer1);
         	}
     }
 

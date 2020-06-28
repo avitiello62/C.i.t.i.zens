@@ -1,0 +1,2 @@
+V	210625152336Z		01	unknown	/C=IT/ST=Campania/O=Asl/OU=Asl Campania Contact Server/CN=Asl Campania Contact Server
+V	210625152750Z		02	unknown	/C=IT/ST=Campania/O=Asl/OU=Asl Campania Medical Center/CN=Asl Campania Medical Center 1

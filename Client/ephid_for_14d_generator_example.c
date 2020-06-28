@@ -30,7 +30,7 @@ int main (int argc, char* argv[])
     unsigned char ciphertext[EPHIDS_SIZE+10];
     //opening a txt to save all the ephids
     FILE* fp;
-    fp=fopen("ephid.txt","w");
+    fp=fopen("Data/ephid.txt","w");
     if (fp == NULL)
         return 1;
 

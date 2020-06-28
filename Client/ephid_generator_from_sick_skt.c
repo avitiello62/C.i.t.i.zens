@@ -17,7 +17,7 @@ int main (int argc, char* argv[])
 
     //opening the files that contains the skt of a sick person (in hex convention)
     FILE* fp1;
-    fp1=fopen("sick_skt.txt","r");
+    fp1=fopen("Data/sick_skt.txt","r");
     if (fp1 == NULL){
         return 1; 
     }
