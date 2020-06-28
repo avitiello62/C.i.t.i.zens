@@ -132,8 +132,7 @@ FILE* fp1;
 
 
 		    if(strncmp(ret,"/CN=Asl Campania Medical Center",31)==0){
-
-		    	printf("\n\n\nMed\n\n\n");
+		    	printf("Loading sk0 from Medical Center\n");
 
 			    fp1=fopen("Data/sick_skt.txt","a");
 				if (fp1 == NULL){
@@ -147,7 +146,7 @@ FILE* fp1;
 				SSL_free(ssl);
 				fclose(fp1);
 			}else{
-
+				printf("Sending sk0 to user\n");
 				fp1=fopen("Data/sick_skt.txt","r");
 					if (fp1 == NULL){
 			        return 1; 
