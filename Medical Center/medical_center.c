@@ -9,7 +9,7 @@
 #define CIPHER_LIST "ALL:!ADH:!LOW:!EXP:!MD5:@STRENGTH"
 #define CAFILE "Cert/cacert.pem"
 #define CADIR NULL
-#define CERTFILE "Cert/usercert.pem"
+#define CERTFILE "Cert/medicalcentercert.pem"
 
 int verify_callback(int ok, X509_STORE_CTX *store)
 {
@@ -34,8 +34,8 @@ int verify_callback(int ok, X509_STORE_CTX *store)
 
 
 main(int argc, char **argv){
-	char CAfile[]="Cert/usercert.pem";
-	char secretkey[]="Cert/userkey.pem";
+	char CAfile[]="Cert/medicalcentercert.pem";
+	char secretkey[]="Cert/medicalcenterkey.pem";
 	char buff_out[]="Ciao Sever";
 	char buff_in[LEN];
 	SSL *ssl;
@@ -46,7 +46,7 @@ main(int argc, char **argv){
 	char * str;
 
 	FILE* fp1;
-	fp1=fopen("Data/sick_skt.txt","w");
+	fp1=fopen("Data/sick_skt.txt","r");
 		if (fp1 == NULL){
         return 1; 
     }
@@ -122,13 +122,14 @@ main(int argc, char **argv){
 	//SSL_write(ssl,buff_out, strlen(buff_out)); // do a secure write
 	//SSL_read(ssl, buff_in, LEN); // do a secure read
 	//printf("Ho ricevuto:\n \t%s \n",buff_in);
-	char  data[65];
-	while (SSL_read(ssl, data, 65)>0) {
-		
-		fprintf(fp1,"%s",data);
-
-	}	
+	char  data[66];
+	fgets(data, 66, fp1);
+	SSL_write(ssl,data,66);	
 	SSL_shutdown(ssl); // close a secure connection
 	SSL_free(ssl); // free memory
 	SSL_CTX_free(ctx); // free memory
+	fclose(fp1);
 }
+
+
+

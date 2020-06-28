@@ -47,7 +47,7 @@ main(int argc, char **argv){
 	char  name[20];
 	int sd, connsd, cnt, lencliaddr;
 	struct sockaddr_in servaddr, clientaddr;
-FILE* fp1;
+
 
 	
 
@@ -107,78 +107,36 @@ FILE* fp1;
 	    if (client_cert != NULL) 
 	    {
  
-		    printf ("Client certificate:\n"); 
-
-			str = X509_NAME_oneline(X509_get_issuer_name(client_cert), 0, 0);
-		    
-		    printf ("\t issuer: %s\n", str);   
+		    printf ("Client certificate:\n");     
 		    str = X509_NAME_oneline(X509_get_subject_name(client_cert), 0, 0);
 		    
 		    printf ("\t subject: %s\n", str);
 		    
-		    char buff[100];
-		   	strcpy(buff,str);
-   			char *ret;
-
-   			ret = strstr(buff, "/CN");
-
+		    str = X509_NAME_oneline(X509_get_issuer_name(client_cert), 0, 0);
 		    
+		    printf ("\t issuer: %s\n", str);
 		    
-
-		    
-		    
-
-
-
-
-		    if(strncmp(ret,"/CN=Asl Campania Medical Center",31)==0){
-
-		    	printf("\n\n\nMed\n\n\n");
-
-			    fp1=fopen("Data/sick_skt.txt","a");
-				if (fp1 == NULL){
-			    return 1; 
-				}
-				char data[66];
-				SSL_read(ssl,data,66);
-				fprintf(fp1,"%s",data);
-				X509_free(client_cert);
-				SSL_shutdown(ssl); // close a secure connection
-				SSL_free(ssl);
-				fclose(fp1);
-			}else{
-
-				fp1=fopen("Data/sick_skt.txt","r");
-					if (fp1 == NULL){
-			        return 1; 
-			    }
-				char  data[65];
-				while (fgets (data, 65, fp1)!=NULL) {
-		    		SSL_write(ssl, data, 65);
-		    		
-		   		}
-				X509_free(client_cert);
-				SSL_shutdown(ssl); // close a secure connection
-				SSL_free(ssl);
-			}
-
+		    X509_free(client_cert);
 	    } 
  
-	    else{
-
-	    	printf("The SSL client does not have certificate.\n");
-	    	
-			
-
-	    }
+	    else
  
-		    
+		    printf("The SSL client does not have certificate.\n");
 		
 		//cnt = SSL_read(ssl, buff, LEN); // do a secure read
 		//buff[cnt] = 0;
 		//SSL_write(ssl, buff, cnt+1);
-		
-	
+		fp1=fopen("Data/sick_skt.txt","a");
+		if (fp1 == NULL){
+        return 1; 
+    	}
+		char data[66];
+		SSL_read(ssl,data,66);
+		printf("\n%s ",data);
+		fprintf(fp1,"%s",data);
+		SSL_shutdown(ssl); // close a secure connection
+		SSL_free(ssl);
+		fclose(fp1);
 	}
 	SSL_CTX_free(ctx);
 }
