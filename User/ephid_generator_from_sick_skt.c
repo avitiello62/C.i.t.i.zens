@@ -15,7 +15,7 @@ int main (int argc, char* argv[])
 {
     int size;
 
-    //opening the files that contains the skt of a sick person (in hex convention)
+    //opening the files that contains the skt of a sick person (in hex code)
     FILE* fp1;
     fp1=fopen("Data/sick_skt.txt","r");
     if (fp1 == NULL){
@@ -30,7 +30,7 @@ int main (int argc, char* argv[])
     
    while (fgets (buffer, 66, fp1)!=NULL){
    	
-    //convertion from char to hex and from hex to unsigned int
+    //conversion from char to hex and from hex to unsigned int
 	    printf("Skt:\t");
 	    for(i=0;i<64/2;i++)
 	    {
@@ -82,7 +82,7 @@ int main (int argc, char* argv[])
 	        for (int j=0; j< 1440;j++){
 	        	//for 16 bytes
 	            for(int i=0;i<16;i++){
-	            	//saving in hex convention
+	            	//saving in hex code
 	                fprintf(fp2,"%02x",(uint8_t)ciphertext[i+j*16]);
 	            }
 	            fprintf(fp2,"\n");

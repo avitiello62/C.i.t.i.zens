@@ -24,11 +24,10 @@ int main(void)
         while (fgets (buffer2, 33, fp2)!=NULL)
         	//count how much corrispondence there are
         	if(strcmp(buffer1,buffer2)==0){
-        		printf("\n Malato = %d\t",++i);
-        		printf("%s\n",buffer1);
+        		i++;
         	}
     }
-
+    printf("Contact with sick people: %d\n",i);
     fclose(fp1);
     fclose(fp2);
     return 0;

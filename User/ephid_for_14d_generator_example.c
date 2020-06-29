@@ -18,7 +18,7 @@ int main (int argc, char* argv[])
 	unsigned char *key =Hmac_sha256_on_32_random_bytes();
     
     
-     /* A 128 bit IV */
+    /* A 128 bit IV */
     unsigned char *iv = (unsigned char *)"0123456789012345";
 
     /* Message to be encrypted */
@@ -42,7 +42,7 @@ int main (int argc, char* argv[])
         for (int j=0; j< 1440;j++){
         	//for 16 bytes
             for(int i=0;i<16;i++){
-            	//saving in hex convention
+            	//saving in hex code
                 fprintf(fp,"%02x",(uint8_t)ciphertext[i+j*16]);
             }
             fprintf(fp,"\n");
